@@ -3,10 +3,14 @@ FROM golang:1.23-alpine
 
 WORKDIR /app
 
-RUN go install github.com/air-verse/air@latest
+# RUN go install github.com/air-verse/air@latest
 
 COPY go.mod go.sum ./
 RUN go mod tidy
 
-CMD ["go build -o ./bin/main cmd/*.go"]
+COPY . .
+
+RUN go build -o ./bin/main ./cmd 
+
+CMD ["./bin/main"]
 
